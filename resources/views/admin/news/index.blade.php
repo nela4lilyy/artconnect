@@ -42,7 +42,7 @@
                     <td style="padding-left:1.25rem;color:var(--muted)">{{ $news->firstItem()+$i }}</td>
                     <td>
                         @if($item->image)
-                        <img src="{{ asset('storage/'.$item->image) }}" class="img-thumb" alt="">
+                        <img src="{{ img_url($item->image) }}" class="img-thumb" alt="">
                         @else
                         <div class="img-thumb-placeholder"><i class="bi bi-image"></i></div>
                         @endif

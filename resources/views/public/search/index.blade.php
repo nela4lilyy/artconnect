@@ -88,7 +88,7 @@
             <a href="{{ route('news.show',$item->slug) }}" style="text-decoration:none;color:inherit">
                 <div class="ac-card" style="display:flex;gap:0;flex-direction:row;align-items:stretch">
                     @if($item->image)
-                    <img src="{{ asset('storage/'.$item->image) }}"
+                    <img src="{{ img_url($item->image) }}"
                          style="width:110px;min-height:90px;object-fit:cover;flex-shrink:0" alt="{{ $item->title }}">
                     @else
                     <div style="width:110px;background:var(--c-primary-lt);display:flex;align-items:center;justify-content:center;font-size:1.8rem;color:var(--c-primary);flex-shrink:0">
@@ -126,7 +126,7 @@
             <a href="{{ route('galleries.show',$gallery) }}" style="text-decoration:none;color:inherit">
                 <div class="ac-card" style="display:flex;flex-direction:row;align-items:stretch">
                     @if($gallery->cover_image)
-                    <img src="{{ asset('storage/'.$gallery->cover_image) }}"
+                    <img src="{{ img_url($gallery->cover_image) }}"
                          style="width:110px;min-height:90px;object-fit:cover;flex-shrink:0" alt="{{ $gallery->title }}">
                     @else
                     <div style="width:110px;background:linear-gradient(135deg,var(--c-primary-lt),var(--c-primary-mid));display:flex;align-items:center;justify-content:center;font-size:1.8rem;color:var(--c-primary);flex-shrink:0">

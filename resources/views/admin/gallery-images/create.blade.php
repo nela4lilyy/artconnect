@@ -9,7 +9,7 @@
         <div class="adm-card mb-3">
             <div style="padding:1rem 1.25rem;display:flex;align-items:center;gap:.85rem">
                 @if($gallery->cover_image)
-                <img src="{{ asset('storage/'.$gallery->cover_image) }}"
+                <img src="{{ img_url($gallery->cover_image) }}"
                      style="width:48px;height:48px;object-fit:cover;border-radius:var(--radius);flex-shrink:0" alt="">
                 @else
                 <div style="width:48px;height:48px;background:var(--ac-lt);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;color:var(--ac);flex-shrink:0">

@@ -39,7 +39,7 @@
                             <label class="form-label">Gambar Sampul</label>
                             @if($news->image)
                             <div style="margin-bottom:.5rem">
-                                <img src="{{ asset('storage/'.$news->image) }}" style="height:65px;border-radius:var(--radius);object-fit:cover" alt="">
+                                <img src="{{ img_url($news->image) }}" style="height:65px;border-radius:var(--radius);object-fit:cover" alt="">
                                 <div class="form-text">Upload baru untuk mengganti.</div>
                             </div>
                             @endif

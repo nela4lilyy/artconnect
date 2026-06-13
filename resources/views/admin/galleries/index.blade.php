@@ -41,7 +41,7 @@
                     <td style="padding-left:1.25rem;color:var(--muted)">{{ $galleries->firstItem()+$i }}</td>
                     <td>
                         @if($gallery->cover_image)
-                        <img src="{{ asset('storage/'.$gallery->cover_image) }}" class="img-thumb" alt="">
+                        <img src="{{ img_url($gallery->cover_image) }}" class="img-thumb" alt="">
                         @else
                         <div class="img-thumb-placeholder"><i class="bi bi-images"></i></div>
                         @endif

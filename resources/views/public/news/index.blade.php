@@ -52,7 +52,7 @@
             <div class="ac-card" style="display:flex;gap:0;flex-direction:column">
                 <div style="display:flex;flex-direction:column">
                     @if($item->image)
-                    <img src="{{ asset('storage/'.$item->image) }}"
+                    <img src="{{ img_url($item->image) }}"
                          style="width:100%;height:200px;object-fit:cover;display:block" alt="{{ $item->title }}">
                     @else
                     <div style="width:100%;height:200px;background:linear-gradient(135deg,var(--c-primary-lt),var(--c-primary-mid));display:flex;align-items:center;justify-content:center;font-size:2.5rem;color:var(--c-primary)">
