@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\CloudinaryService;
 use Illuminate\Database\Eloquent\Model;
 
 class GalleryImage extends Model
@@ -15,6 +16,6 @@ class GalleryImage extends Model
 
     public function getImageUrlAttribute(): string
     {
-        return asset('storage/' . $this->image);
+        return CloudinaryService::url($this->image);
     }
 }

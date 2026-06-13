@@ -6,11 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreGalleryImageRequest;
 use App\Models\Gallery;
 use App\Models\GalleryImage;
+use App\Services\CloudinaryService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class GalleryImageController extends Controller
 {
+    public function __construct(private CloudinaryService $cloudinary) {}
+
     public function index(Gallery $gallery)
     {
         $images = $gallery->images()->latest()->paginate(12);
@@ -27,7 +29,7 @@ class GalleryImageController extends Controller
         $captions = $request->input('captions', []);
 
         foreach ($request->file('images') as $index => $file) {
-            $path = $file->store('gallery-images', 'public');
+            $path = $this->cloudinary->upload($file, 'artconnect/gallery-images');
 
             $gallery->images()->create([
                 'image'   => $path,
@@ -35,8 +37,10 @@ class GalleryImageController extends Controller
             ]);
         }
 
+        $count = count($request->file('images'));
+
         return redirect()->route('admin.galleries.show', $gallery)
-            ->with('success', count($request->file('images')) . ' foto berhasil diupload.');
+            ->with('success', "{$count} foto berhasil diupload.");
     }
 
     public function edit(Gallery $gallery, GalleryImage $galleryImage)
@@ -54,8 +58,11 @@ class GalleryImageController extends Controller
         $data = ['caption' => $request->caption];
 
         if ($request->hasFile('image')) {
-            Storage::disk('public')->delete($galleryImage->image);
-            $data['image'] = $request->file('image')->store('gallery-images', 'public');
+            $this->cloudinary->delete($galleryImage->image);
+            $data['image'] = $this->cloudinary->upload(
+                $request->file('image'),
+                'artconnect/gallery-images'
+            );
         }
 
         $galleryImage->update($data);
@@ -66,7 +73,7 @@ class GalleryImageController extends Controller
 
     public function destroy(Gallery $gallery, GalleryImage $galleryImage)
     {
-        Storage::disk('public')->delete($galleryImage->image);
+        $this->cloudinary->delete($galleryImage->image);
         $galleryImage->delete();
 
         return back()->with('success', 'Foto berhasil dihapus.');

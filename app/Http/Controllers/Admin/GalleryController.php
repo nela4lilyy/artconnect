@@ -6,18 +6,17 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreGalleryRequest;
 use App\Http\Requests\Admin\UpdateGalleryRequest;
 use App\Models\Gallery;
-use Illuminate\Support\Facades\Storage;
+use App\Services\CloudinaryService;
 
 class GalleryController extends Controller
 {
+    public function __construct(private CloudinaryService $cloudinary) {}
+
     public function index()
     {
         $search = request('search');
-
         $galleries = Gallery::withCount('images')
-            ->when($search, function ($query, $search) {
-                $query->where('title', 'like', "%{$search}%");
-            })
+            ->when($search, fn($q, $s) => $q->where('title', 'like', "%$s%"))
             ->latest()
             ->paginate(10)
             ->withQueryString();
@@ -35,7 +34,10 @@ class GalleryController extends Controller
         $data = $request->validated();
 
         if ($request->hasFile('cover_image')) {
-            $data['cover_image'] = $request->file('cover_image')->store('galleries', 'public');
+            $data['cover_image'] = $this->cloudinary->upload(
+                $request->file('cover_image'),
+                'artconnect/galleries'
+            );
         }
 
         Gallery::create($data);
@@ -61,9 +63,12 @@ class GalleryController extends Controller
 
         if ($request->hasFile('cover_image')) {
             if ($gallery->cover_image) {
-                Storage::disk('public')->delete($gallery->cover_image);
+                $this->cloudinary->delete($gallery->cover_image);
             }
-            $data['cover_image'] = $request->file('cover_image')->store('galleries', 'public');
+            $data['cover_image'] = $this->cloudinary->upload(
+                $request->file('cover_image'),
+                'artconnect/galleries'
+            );
         } else {
             unset($data['cover_image']);
         }
@@ -77,11 +82,11 @@ class GalleryController extends Controller
     public function destroy(Gallery $gallery)
     {
         if ($gallery->cover_image) {
-            Storage::disk('public')->delete($gallery->cover_image);
+            $this->cloudinary->delete($gallery->cover_image);
         }
 
         foreach ($gallery->images as $image) {
-            Storage::disk('public')->delete($image->image);
+            $this->cloudinary->delete($image->image);
         }
 
         $gallery->delete();

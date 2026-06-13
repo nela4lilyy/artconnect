@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\CloudinaryService;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
@@ -28,15 +29,16 @@ class News extends Model
 
     public static function generateSlug(string $title): string
     {
-        $slug = Str::slug($title);
+        $slug  = Str::slug($title);
         $count = static::where('slug', 'like', $slug . '%')->count();
         return $count ? $slug . '-' . ($count + 1) : $slug;
     }
 
     public function getImageUrlAttribute(): string
     {
-        return $this->image
-            ? asset('storage/' . $this->image)
-            : asset('images/news-placeholder.jpg');
+        if (!$this->image) {
+            return '';
+        }
+        return CloudinaryService::url($this->image);
     }
 }

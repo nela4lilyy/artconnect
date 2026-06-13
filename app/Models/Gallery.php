@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\CloudinaryService;
 use Illuminate\Database\Eloquent\Model;
 
 class Gallery extends Model
@@ -15,8 +16,9 @@ class Gallery extends Model
 
     public function getCoverImageUrlAttribute(): string
     {
-        return $this->cover_image
-            ? asset('storage/' . $this->cover_image)
-            : asset('images/gallery-placeholder.jpg');
+        if (!$this->cover_image) {
+            return '';
+        }
+        return CloudinaryService::url($this->cover_image);
     }
 }
