@@ -6,7 +6,7 @@
 <div class="adm-card mb-4">
     <div style="padding:1.25rem;display:flex;flex-wrap:wrap;gap:1rem;align-items:flex-start">
         @if($gallery->cover_image)
-        <img src="{{ img_url($gallery->cover_image) }}"
+        <img src="{{ asset('storage/'.$gallery->cover_image) }}"
              style="width:100px;height:75px;object-fit:cover;border-radius:var(--radius);flex-shrink:0" alt="">
         @endif
         <div style="flex:1;min-width:180px">
@@ -42,7 +42,7 @@
         <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:.85rem">
             @foreach($gallery->images as $img)
             <div class="adm-card" style="overflow:hidden">
-                <img src="{{ img_url($img->image) }}"
+                <img src="{{ asset('storage/'.$img->image) }}"
                      style="width:100%;height:130px;object-fit:cover;display:block" alt="{{ $img->caption }}">
                 <div style="padding:.6rem .7rem">
                     <p style="font-size:.75rem;color:var(--muted);margin:0 0 .5rem;min-height:2rem;line-height:1.4">

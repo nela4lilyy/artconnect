@@ -23,7 +23,7 @@
             <div class="ac-card">
                 <div style="position:relative;overflow:hidden">
                     @if($gallery->cover_image)
-                    <img src="{{ img_url($gallery->cover_image) }}"
+                    <img src="{{ asset('storage/'.$gallery->cover_image) }}"
                          style="width:100%;height:220px;object-fit:cover;display:block;transition:transform .4s" class="gal-img" alt="{{ $gallery->title }}">
                     @else
                     <div style="width:100%;height:220px;background:linear-gradient(135deg,var(--c-primary-lt),var(--c-primary-mid));display:flex;align-items:center;justify-content:center;font-size:3rem;color:var(--c-primary)">

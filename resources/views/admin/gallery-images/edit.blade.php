@@ -9,7 +9,7 @@
             <div class="adm-card-header"><i class="bi bi-pencil me-2" style="color:var(--ac)"></i>Edit Foto</div>
             <div style="padding:1.5rem">
                 <div style="margin-bottom:1.25rem;text-align:center">
-                    <img src="{{ img_url($galleryImage->image) }}"
+                    <img src="{{ asset('storage/'.$galleryImage->image) }}"
                          style="max-height:220px;max-width:100%;border-radius:var(--radius);object-fit:cover" alt="">
                 </div>
                 <form action="{{ route('admin.gallery-images.update',[$gallery,$galleryImage]) }}"

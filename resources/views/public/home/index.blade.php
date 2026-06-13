@@ -176,7 +176,7 @@ $gradients = [
         <div class="carousel-item {{ $i === 0 ? 'active' : '' }}">
             <div class="slide-bg"
                  style="{{ $item->image
-                    ? 'background-image:url('.img_url($item->image).');background-size:cover;background-position:center'
+                    ? 'background-image:url('.asset('storage/'.$item->image).');background-size:cover;background-position:center'
                     : 'background:'.$gradients[$i % 5] }}">
                 {{-- Decorative shapes --}}
                 <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:.05" viewBox="0 0 800 380" preserveAspectRatio="xMidYMid slice">
@@ -279,7 +279,7 @@ $gradients = [
                 @foreach($latestGalleries as $gallery)
                 <a href="{{ route('galleries.show', $gallery) }}" class="art-card">
                     @if($gallery->cover_image)
-                    <img src="{{ img_url($gallery->cover_image) }}"
+                    <img src="{{ asset('storage/'.$gallery->cover_image) }}"
                          class="art-card-img" alt="{{ $gallery->title }}">
                     @else
                     <div class="art-card-img d-flex align-items-center justify-content-center"
@@ -323,7 +323,7 @@ $gradients = [
             @foreach($latestNews as $item)
             <a href="{{ route('news.show', $item->slug) }}" class="news-card">
                 @if($item->image)
-                <img src="{{ img_url($item->image) }}"
+                <img src="{{ asset('storage/'.$item->image) }}"
                      class="news-card-img" alt="{{ $item->title }}">
                 @else
                 <div class="news-card-img d-flex align-items-center justify-content-center"

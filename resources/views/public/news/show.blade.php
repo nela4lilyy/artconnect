@@ -28,7 +28,7 @@
                 <span><i class="bi bi-tags me-1"></i>{{ $news->category->name }}</span>
             </div>
             @if($news->image)
-            <img src="{{ img_url($news->image) }}"
+            <img src="{{ asset('storage/'.$news->image) }}"
                  style="width:100%;max-height:440px;object-fit:cover;border-radius:var(--radius-md);margin-bottom:2rem" alt="{{ $news->title }}">
             @endif
             <div style="font-size:1.05rem;line-height:1.95;color:#444">
@@ -53,7 +53,7 @@
                        style="display:flex;gap:.85rem;padding:.9rem 1.1rem;border-bottom:1px solid var(--c-border);text-decoration:none;transition:background .2s"
                        onmouseover="this.style.background='var(--c-primary-lt)'" onmouseout="this.style.background=''">
                         @if($r->image)
-                        <img src="{{ img_url($r->image) }}" style="width:58px;height:48px;object-fit:cover;border-radius:var(--radius-sm);flex-shrink:0" alt="">
+                        <img src="{{ asset('storage/'.$r->image) }}" style="width:58px;height:48px;object-fit:cover;border-radius:var(--radius-sm);flex-shrink:0" alt="">
                         @else
                         <div style="width:58px;height:48px;background:var(--c-primary-lt);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;color:var(--c-primary);flex-shrink:0">
                             <i class="bi bi-image"></i>

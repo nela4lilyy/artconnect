@@ -20,7 +20,7 @@
                         <label class="form-label">Cover Image</label>
                         @if($category->cover_image)
                         <div style="margin-bottom:.6rem">
-                            <img src="{{ img_url($category->cover_image) }}"
+                            <img src="{{ asset('storage/'.$category->cover_image) }}"
                                  style="height:70px;border-radius:var(--radius);object-fit:cover" alt="">
                             <div class="form-text">Upload baru untuk mengganti gambar.</div>
                         </div>

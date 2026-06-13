@@ -21,7 +21,7 @@
     <div class="row g-4 align-items-center mb-5">
         @if($gallery->cover_image)
         <div class="col-md-4">
-            <img src="{{ img_url($gallery->cover_image) }}"
+            <img src="{{ asset('storage/'.$gallery->cover_image) }}"
                  style="width:100%;max-height:260px;object-fit:cover;border-radius:var(--radius-md)" alt="{{ $gallery->title }}">
         </div>
         @endif
@@ -48,8 +48,8 @@
     <div style="display:grid;gap:.85rem;grid-template-columns:repeat(2,1fr)" class="photo-grid">
         @foreach($gallery->images as $img)
         <div style="border-radius:var(--radius-sm);overflow:hidden;cursor:zoom-in;position:relative"
-             onclick="openLb('{{ img_url($img->image) }}','{{ addslashes($img->caption??'') }}')">
-            <img src="{{ img_url($img->image) }}"
+             onclick="openLb('{{ asset('storage/'.$img->image) }}','{{ addslashes($img->caption??'') }}')">
+            <img src="{{ asset('storage/'.$img->image) }}"
                  style="width:100%;height:190px;object-fit:cover;display:block;transition:transform .35s"
                  onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform=''"
                  alt="{{ $img->caption }}">
