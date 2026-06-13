@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\URL; // <-- Tambahan: Untuk mengaktifkan fitur pengatur URL
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +20,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // Tambahan: Paksa Laravel menggunakan HTTPS jika aplikasi berjalan di Railway (production)
+        if (config('app.env') === 'production') {
+            URL::forceScheme('https');
+        }
     }
 }
